@@ -62,7 +62,6 @@ class CategoryResource extends Resource
                     ->maxLength(255),
                 Toggle::make('active')
                     ->default(true),
-
             ]);
     }
 }
