@@ -19,6 +19,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Illuminate\Support\Facades\Auth;
 
 class ProductResource extends Resource
 {
@@ -70,9 +71,14 @@ class ProductResource extends Resource
                 TextInput::make('price')
                     ->numeric()
                     ->required(),
-                    
+
                 Toggle::make('active')
                 ->default(true),
             ]);
     }
+
+    // public static function canViewAny(): bool
+    // {
+    //     return Auth::user()?->can('manage products') ?? false;
+    // }
 }

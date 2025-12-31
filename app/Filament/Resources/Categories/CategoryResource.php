@@ -18,6 +18,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryResource extends Resource
 {
@@ -60,8 +61,14 @@ class CategoryResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                    
                 Toggle::make('active')
                     ->default(true),
             ]);
     }
+
+    // public static function canViewAny(): bool
+    // {
+    //     return Auth::user()?->can('manage products') ?? false;
+    // }
 }

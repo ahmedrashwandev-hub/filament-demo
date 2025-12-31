@@ -6,18 +6,22 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class RolesAndPermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        Permission::create(['name' => 'manage products']);
-        Permission::create(['name' => 'manage categories']);
+        Permission::firstOrCreate(['name' => 'manage products']);
+        Permission::firstOrCreate(['name' => 'manage categories']);
 
-        $admin = Role::create(['name' => 'admin']);
-        $manager = Role::create(['name' => 'manager']);
+        $admin   = Role::firstOrCreate(['name' => 'admin']);
+        $manager = Role::firstOrCreate(['name' => 'manager']);
 
         $admin  ->givePermissionTo(Permission::all());
         $manager->givePermissionTo(['manage products']);
+
+        $user = User::first();
+        $user->assignRole('admin');
     }
 }
