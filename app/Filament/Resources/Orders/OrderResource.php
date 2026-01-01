@@ -67,10 +67,10 @@ class OrderResource extends Resource
 
                 Select::make('status')
                     ->options([
-                        'pending' => 'Pending',
+                        'pending'    => 'Pending',
                         'processing' => 'Processing',
-                        'completed' => 'Completed',
-                        'cancelled' => 'Cancelled',
+                        'completed'  => 'Completed',
+                        'cancelled'  => 'Cancelled',
                     ])
                     ->required(),
             ]);

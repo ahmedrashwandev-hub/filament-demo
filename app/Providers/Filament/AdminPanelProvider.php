@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('dashboard')
             ->brandName('E-Commerce Admin')
-            // ->databaseNotifications()
+            ->databaseNotifications()
             ->login()
             ->colors([
                 'primary' => Color::Amber,
