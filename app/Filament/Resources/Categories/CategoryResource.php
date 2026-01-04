@@ -38,6 +38,28 @@ class CategoryResource extends Resource
         return CategoriesTable::configure($table);
     }
 
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()?->can('view categories') ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()?->can('create categories') ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()?->can('edit categories') ?? false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()?->can('delete categories') ?? false;
+    }
+
+
     public static function getRelations(): array
     {
         return [
@@ -61,7 +83,7 @@ class CategoryResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                    
+
                 Toggle::make('active')
                     ->default(true),
             ]);

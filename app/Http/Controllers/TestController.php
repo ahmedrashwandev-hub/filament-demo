@@ -15,4 +15,22 @@ class TestController extends Controller
         dd(Auth::user());
         return view('welcome', ['message' => "Test Controller Authenticated Access"]);
     }
+
+    public function showLoginForm()
+    {
+        return view('login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/dashboard');
+        }
+
+        return back()->with('error', 'Invalid credentials');
+    }
 }

@@ -13,5 +13,10 @@ Route::get('/', function () {
 Route::get('/test',[TestController::class,'index'])
 ->middleware('auth');
 
-// Test route to create an order and trigger notifications (development-only)
 Route::post('/orders/test', [OrderController::class, 'store']);
+
+// To show login form
+Route::get('login', [TestController::class, 'showLoginForm'])->name('login');
+
+// To handle login submission
+Route::post('login', [TestController::class, 'login'])->name('login.submit');

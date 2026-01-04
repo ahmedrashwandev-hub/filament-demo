@@ -4,24 +4,64 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Models\User;
+use Spatie\Permission\PermissionRegistrar;
+use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-        Permission::firstOrCreate(['name' => 'manage products']);
-        Permission::firstOrCreate(['name' => 'manage categories']);
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $admin   = Role::firstOrCreate(['name' => 'admin']);
-        $manager = Role::firstOrCreate(['name' => 'manager']);
+        $permissions = [
+            'view users',
+            'create users',
+            'edit users',
+            'manage users',
+            'delete users',
 
-        $admin  ->givePermissionTo(Permission::all());
-        $manager->givePermissionTo(['manage products']);
+            'view products',
+            'create products',
+            'edit products',
+            'delete products',
 
-        $user = User::first();
-        $user->assignRole('admin');
+            'view categories',
+            'create categories',
+            'edit categories',
+            'delete categories',
+        ];
+
+        foreach ($permissions as $permission)
+        {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
+
+        $superAdmin = Role::firstOrCreate(['name' => 'super admin']);
+        $Admin      = Role::firstOrCreate(['name' => 'admin']);
+        $editor     = Role::firstOrCreate(['name' => 'editor']);
+
+
+        $superAdmin->givePermissionTo(Permission::all());
+        $Admin->givePermissionTo([
+
+            'view products',
+            'create products',
+            'edit products',
+            'delete products',
+        ]);
+
+        $editor->givePermissionTo([
+
+            'view categories',
+            'create categories',
+            'edit categories',
+            'delete categories',
+
+        ]);
+
     }
 }

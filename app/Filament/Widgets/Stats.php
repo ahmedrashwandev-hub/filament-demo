@@ -11,7 +11,6 @@ use App\Models\Product;
 
 class Stats extends BaseWidget
 {
-
     /**
      * @return array<\Filament\Widgets\StatsOverviewWidget\Stat>
      */
