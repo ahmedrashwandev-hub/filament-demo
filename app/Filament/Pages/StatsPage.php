@@ -2,12 +2,13 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Pages\Page;
 use BackedEnum;
-use App\Models\Order;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Category;
+use Filament\Pages\Page;
+use Filament\Notifications\Notification;
 
 class StatsPage extends Page
 {
@@ -27,6 +28,13 @@ class StatsPage extends Page
         $this->totalCategories = Category::count();
         $this->totalProducts = Product::count();
         $this->totalUsers = User::count();
+
+
+        Notification::make()
+        ->title('Notification Done Successfully')
+        ->body(' First Notification in Filament')
+        ->success()
+        ->send();
     }
 
     protected string $view = 'filament.pages.stats-page';

@@ -31,6 +31,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('dashboard')
             ->brandName('E-Commerce Admin')
             ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
+            ->topbar()
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -61,8 +63,6 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
-
-
 
     public function getWidgets(): array
     {

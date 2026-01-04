@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Settings\GeneralSettings;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        try {
+            $siteName = app(GeneralSettings::class)->site_name;
+        } catch (\Throwable $e) {
+            $siteName = config('app.name');
+        }
+
+        View::share('siteName', $siteName);
     }
 }
